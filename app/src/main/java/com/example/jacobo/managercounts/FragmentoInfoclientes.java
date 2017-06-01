@@ -4,12 +4,18 @@ package com.example.jacobo.managercounts;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.jacobo.managercounts.Dialogos.DateDialog;
+
 
 
 /**
@@ -19,6 +25,10 @@ public class FragmentoInfoclientes extends Fragment {
 
     TextView tNombre,tCedula,tDireccion,tTelefono,tsaldo,tBarrio,tFechapago;
     String PREFS_NAME = "MyPrefsFile";
+    Button bFecha, bAbonar;
+
+    int year, month , day;
+    String flagdate;
 
 
     public FragmentoInfoclientes() {
@@ -39,6 +49,11 @@ public class FragmentoInfoclientes extends Fragment {
         tsaldo = (TextView) inflated.findViewById(R.id.Infosaldo);
         tFechapago = (TextView) inflated.findViewById(R.id.Infofechapago);
 
+
+
+        bFecha = (Button) inflated.findViewById(R.id.bFecha);
+
+
         SharedPreferences datos = this.getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         String Usuario = " "+datos.getString("nombre","");
         String Cedula = " "+datos.getString("cedula","");
@@ -48,6 +63,15 @@ public class FragmentoInfoclientes extends Fragment {
         String Fecha = " "+datos.getString("fecha","");
         String Telefono = " "+datos.getString("telefono","");
         String Saldo = " "+datos.getString("saldo","");
+        flagdate = datos.getString("flagdate","");
+
+        year = datos.getInt("yeardate",0);
+        month = datos.getInt("monthdate",0);
+        day = datos.getInt("daydate",0);
+
+
+
+
 
         Log.d("Usuario", Usuario);
         Log.d("Password", Cedula);
@@ -62,6 +86,22 @@ public class FragmentoInfoclientes extends Fragment {
         tFechapago.setText("FECHA PAGO: "+Fecha);
 
 
+
+        bFecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentManager fragmentManager = getFragmentManager();
+
+
+
+                new DateDialog().show(fragmentManager, "DatePickerFragment");
+
+
+                Snackbar.make(v, flagdate, Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_infoclientes, container, false);

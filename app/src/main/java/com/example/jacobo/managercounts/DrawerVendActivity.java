@@ -1,5 +1,6 @@
 package com.example.jacobo.managercounts;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,9 +18,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.Toast;
 
 public class DrawerVendActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, DatePickerDialog.OnDateSetListener {
 
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
@@ -29,6 +32,43 @@ public class DrawerVendActivity extends AppCompatActivity
     String nom, ced, bar ,tel, dir ,apell,saldo,fecha;
     String flag="1";
 
+    int yeardate=0,monthdate=0,daydate=0;
+    String flagdate="1";
+    String fechadate="";
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+       yeardate = year;
+       monthdate = monthOfYear;
+       daydate = dayOfMonth;
+       flagdate ="2";
+
+        datos = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor edit = datos.edit();
+
+        edit.putString("flagdate",flagdate);
+        edit.putString("fecha", String.valueOf(yeardate)+"/"+String.valueOf(monthdate+1)+"/"+String.valueOf(daydate));
+        edit.commit();
+
+        Fragment fragmentoGenerico = null;
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        fragmentoGenerico = new FragmentoInfoclientes();
+
+        editor.commit();
+        fragmentManager.beginTransaction().replace(R.id.Contenedor, fragmentoGenerico).commit();
+
+        monthOfYear= monthOfYear+1;
+        Toast.makeText(
+                this,
+                "Fecha: " + year + "-" + monthOfYear + "-" + dayOfMonth,
+                Toast.LENGTH_LONG)
+                .show();
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +106,12 @@ public class DrawerVendActivity extends AppCompatActivity
         edit.putString("fecha",fecha);
         edit.putString("telefono", tel);
         edit.putString("saldo", saldo);
+
+        edit.putInt("yeardate",yeardate);
+        edit.putInt("monthdate",monthdate);
+        edit.putInt("daydate",daydate);
+        edit.putString("flagdate",flagdate);
+
 
 
         edit.commit();

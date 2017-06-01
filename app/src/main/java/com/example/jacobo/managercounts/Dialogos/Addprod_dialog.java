@@ -44,10 +44,12 @@ public class Addprod_dialog extends DialogFragment{
 
     String nombre,precio;
     private static final int GALLERY_INTENT= 1 ;
-   // private StorageReference subirImagen;
+    private StorageReference subirImagen;
     private ProgressDialog myProgressDialog;
     ImageButton ImagenBoton;
     EditText nombreprod;
+
+    //FirebaseStorage storage = FirebaseStorage.getInstance();
 
     public Addprod_dialog() {
     }
@@ -68,12 +70,12 @@ public class Addprod_dialog extends DialogFragment{
 
         builder.setView(v);
 
-
+        //StorageReference storageRef = storage.getReference();
 
         nombreprod = (EditText) v.findViewById(R.id.eNombreprod);
         final EditText precioprod = (EditText) v.findViewById(R.id.ePrecioprod);
 
-        //subirImagen = FirebaseStorage.getInstance().getReference();
+       // subirImagen = FirebaseStorage.getInstance().getReference();
 
         Button guardar = (Button) v.findViewById(R.id.bAdguardarprod);
         Button cancelar = (Button) v.findViewById(R.id.bcancelarprod);
@@ -136,9 +138,13 @@ public class Addprod_dialog extends DialogFragment{
 
         if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK ){
 
-            nombre = nombreprod.getText().toString();
+            /*nombre = nombreprod.getText().toString();
+            Uri uri = data.getData();
+            StorageReference filepath = subirImagen.child("FotosProductos").child(nombre);
+            UploadTask uploadTask = filepath.putFile(uri);*/
 
-            /*Uri uri = data.getData();
+
+           Uri uri = data.getData();
             StorageReference filepath = subirImagen.child("FotosProductos").child(nombre);
             //StorageReference filepath = subirImagen.child("FotosClientes").child(uri.getLastPathSegment());
             filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -152,7 +158,7 @@ public class Addprod_dialog extends DialogFragment{
 
 
                 }
-            });*/
+            });
         }
     }
 

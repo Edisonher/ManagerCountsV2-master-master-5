@@ -27,15 +27,31 @@
                     android:src="@drawable/usuario"
                     android:layout_gravity="center"
                     />
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:id="@+id/Infofechapago"
-                    android:text="@string/proximopago"
-                    android:textSize="20sp"
-                    android:textAlignment="center"
-                    />
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="7"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:id="@+id/Infofechapago"
+                        android:text="FECHA PAGO"
+                        android:textSize="20sp"
+                        android:textAlignment="center"
+                        />
+
+                    <Button
+                        android:id="@+id/bFecha"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="37dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/calendaricon"/>
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -117,6 +133,7 @@
                         android:id="@+id/eValorabono"
                         android:hint="@string/abono"
                         android:textSize="20sp"
+                        android:inputType="phone"
                         android:textAlignment="center"
                         />
                     <Button style="@style/StyleButton"
