@@ -29,6 +29,14 @@
             android:hint="@string/precio"
             android:inputType="phone"
             android:id="@+id/ePrecioprod"/>
+        <EditText style="@style/StyleEditTextDatos"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:hint="@string/descripcion"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            android:id="@+id/eDescripcionprod"/>
+
 
     </LinearLayout>
     <android.support.v4.widget.Space

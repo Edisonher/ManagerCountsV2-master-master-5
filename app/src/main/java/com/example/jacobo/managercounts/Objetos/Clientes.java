@@ -13,12 +13,13 @@ public class Clientes {
     String barrio;
     String deuda;
     String fechapago;
+    String urlimagen;
 
 
     public Clientes() {
     }
 
-    public Clientes(String cedula, String nombre, String apellido, String telefono, String direccion, String barrio, String deuda, String fechapago) {
+    public Clientes(String cedula, String nombre, String apellido, String telefono, String direccion, String barrio, String deuda, String fechapago, String urlimagen) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -27,6 +28,7 @@ public class Clientes {
         this.barrio = barrio;
         this.deuda = deuda;
         this.fechapago = fechapago;
+        this.urlimagen = urlimagen;
     }
 
     public String getCedula() {
@@ -91,5 +93,13 @@ public class Clientes {
 
     public void setFechapago(String fechapago) {
         this.fechapago = fechapago;
+    }
+
+    public String getUrlimagen() {
+        return urlimagen;
+    }
+
+    public void setUrlimagen(String urlimagen) {
+        this.urlimagen = urlimagen;
     }
 }

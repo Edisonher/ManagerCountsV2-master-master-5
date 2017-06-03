@@ -25,9 +25,7 @@ import com.example.jacobo.managercounts.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+
 
 import static android.app.Activity.RESULT_OK;
 import java.util.HashMap;
@@ -42,9 +40,9 @@ public class Addprod_dialog extends DialogFragment{
 
     DatabaseReference myRef;
 
-    String nombre,precio;
+    String nombre,precio,descripcion;
     private static final int GALLERY_INTENT= 1 ;
-    private StorageReference subirImagen;
+
     private ProgressDialog myProgressDialog;
     ImageButton ImagenBoton;
     EditText nombreprod;
@@ -74,6 +72,7 @@ public class Addprod_dialog extends DialogFragment{
 
         nombreprod = (EditText) v.findViewById(R.id.eNombreprod);
         final EditText precioprod = (EditText) v.findViewById(R.id.ePrecioprod);
+        final EditText descripcionprod = (EditText) v.findViewById(R.id.eDescripcionprod);
 
        // subirImagen = FirebaseStorage.getInstance().getReference();
 
@@ -91,9 +90,9 @@ public class Addprod_dialog extends DialogFragment{
                         final FirebaseDatabase database = FirebaseDatabase.getInstance();
                         nombre = nombreprod.getText().toString();
                         precio = precioprod.getText().toString();
-
+                        descripcion = descripcionprod.getText().toString();
                        // Productos producto = new Productos("","");
-                        Productos producto = new Productos(nombre,precio);
+                        Productos producto = new Productos(nombre,precio,"",descripcion);
 
                         myRef = database.getReference("productos").child(nombre);
                         myRef.setValue(producto);
@@ -144,21 +143,7 @@ public class Addprod_dialog extends DialogFragment{
             UploadTask uploadTask = filepath.putFile(uri);*/
 
 
-           Uri uri = data.getData();
-            StorageReference filepath = subirImagen.child("FotosProductos").child(nombre);
-            //StorageReference filepath = subirImagen.child("FotosClientes").child(uri.getLastPathSegment());
-            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-
-                    Uri descargarfoto = taskSnapshot.getDownloadUrl();
-                    Glide.with(Addprod_dialog.this).load(descargarfoto).fitCenter().centerCrop().into(ImagenBoton);
-
-
-
-                }
-            });
         }
     }
 

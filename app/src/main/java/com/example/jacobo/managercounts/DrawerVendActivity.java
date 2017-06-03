@@ -21,6 +21,8 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
+import com.example.jacobo.managercounts.Dialogos.Compraprod_dialog;
+
 public class DrawerVendActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DatePickerDialog.OnDateSetListener {
 
@@ -31,10 +33,12 @@ public class DrawerVendActivity extends AppCompatActivity
     SharedPreferences datos;
     String nom, ced, bar ,tel, dir ,apell,saldo,fecha;
     String flag="1";
+    String flag2="3";
 
     int yeardate=0,monthdate=0,daydate=0;
     String flagdate="1";
     String fechadate="";
+    String nomprod,descripcionprod;
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -94,6 +98,9 @@ public class DrawerVendActivity extends AppCompatActivity
         saldo = getIntent().getStringExtra("saldo");
 
 
+        nomprod = getIntent().getStringExtra("nombreprod");
+        descripcionprod = getIntent().getStringExtra("descripcionprod");
+
 
         datos = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 
@@ -112,6 +119,10 @@ public class DrawerVendActivity extends AppCompatActivity
         edit.putInt("daydate",daydate);
         edit.putString("flagdate",flagdate);
 
+
+        //para comprar producto
+        edit.putString("nombreprod",nomprod);
+        edit.putString("descripcionprod",descripcionprod);
 
 
         edit.commit();
@@ -139,6 +150,18 @@ public class DrawerVendActivity extends AppCompatActivity
 
             editor.commit();
             fragmentManager.beginTransaction().replace(R.id.Contenedor, fragmentoGenerico).commit();
+
+        }
+        else if (flag2.equals(getIntent().getStringExtra("bandera"))){
+            android.app.FragmentManager fm = getFragmentManager();
+
+            new Compraprod_dialog().show(fm, "Compraprod_dialog");
+
+            fragmentoGenerico = new FragmentProductos();
+
+            editor.commit();
+            fragmentManager.beginTransaction().replace(R.id.Contenedor, fragmentoGenerico).commit();
+
 
         }
         else {

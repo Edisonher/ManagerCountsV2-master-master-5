@@ -6,8 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.jacobo.managercounts.DrawerVendActivity;
 import com.example.jacobo.managercounts.R;
 
@@ -25,7 +27,7 @@ public class ClientesAdapter extends RecyclerView.Adapter<ClientesAdapter.Client
 
     public static class ClientesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // Campos respectivos de un item
-        //public ImageView imagen;
+        public ImageView imagen;
         public TextView nombre;
         public TextView visitas;
         ArrayList<Clientes> items = new ArrayList<Clientes> ();
@@ -36,7 +38,7 @@ public class ClientesAdapter extends RecyclerView.Adapter<ClientesAdapter.Client
             this.items = items;
             this.ctx = ctx;
             v.setOnClickListener(this);
-            //imagen = (ImageView) v.findViewById(R.id.imagen);
+            imagen = (ImageView) v.findViewById(R.id.imagen);
             nombre = (TextView) v.findViewById(R.id.cardnombre);
             visitas = (TextView) v.findViewById(R.id.cardcedula);
 
@@ -87,5 +89,6 @@ public class ClientesAdapter extends RecyclerView.Adapter<ClientesAdapter.Client
         //viewHolder.imagen.setImageResource(items.get(i).getImagen());
         viewHolder.nombre.setText(items.get(i).getNombre());
         viewHolder.visitas.setText("Cedula:"+String.valueOf(items.get(i).getCedula()));
+        Glide.with(ctx).load(items.get(i).getUrlimagen()).into(viewHolder.imagen);
     }
 }

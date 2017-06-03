@@ -89,8 +89,8 @@ public class FragmentProductos extends Fragment {
 
                     Productos parqueadero = dataSnapshot.getValue(Productos.class);
                     items.add(parqueadero);
-                    adapter.notifyDataSetChanged();
-                    //adapter.notifyItemInserted(items.size() - 1);
+                    //adapter.notifyDataSetChanged();
+                    adapter.notifyItemInserted(items.size() - 1);
 
                 }
             }

@@ -49,9 +49,11 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
             Productos producto = this.items.get(position);
 
             Intent intent = new Intent(this.ctx,DrawerVendActivity.class);
-            intent.putExtra("nombre",producto.getNombre());
-            intent.putExtra("precio",producto.getPrecio());
-            //intent.putExtra("bandera","1");
+            intent.putExtra("nombreprod",producto.getNombre());
+            intent.putExtra("precioprod",producto.getPrecio());
+            intent.putExtra("descripcionprod",producto.getDescripcion());
+            intent.putExtra("bandera","3");
+           // this.ctx.startActivity(intent);
             this.ctx.startActivity(intent);
         }
     }
